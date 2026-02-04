@@ -278,7 +278,7 @@
               <tr>
                 <td style="width: 100px;">具體作法</td>
                 <td style="width: 500px;">
-                  <div v-if="emailLogin === 'vantruong08062002@gmail.com'">
+                  <div v-if="emailLogin === emailAdmin">
                     <input type="text" v-model="dataText.text1" style="width: 100%; height: 100%;" placeholder="Data...">
                   </div>
                   <div v-else>
@@ -288,7 +288,7 @@
                 </td>
                 <td style="width: 100px;">活動名稱</td>
                 <td style="width: 500px;">
-                  <div v-if="emailLogin === 'vantruong08062002@gmail.com'">
+                  <div v-if="emailLogin === emailAdmin">
                     <input type="text" v-model="dataText.text2" style="width: 100%; height: 100%;" placeholder="Data...">
                   </div>
                   <div v-else>
@@ -299,7 +299,7 @@
               <tr>
                 <td style="width: 100px;">辦理日期</td>
                 <td style="width: 500px;">
-                  <div v-if="emailLogin === 'vantruong08062002@gmail.com'">
+                  <div v-if="emailLogin === emailAdmin">
                     <input type="date" v-model="dataText.text3" style="width: 100%; height: 100%;" placeholder="Data...">
                   </div>
                   <div v-else>
@@ -309,7 +309,7 @@
                 </td>
                 <td style="width: 100px;">活動地點</td>
                 <td style="width: 500px;">
-                  <div v-if="emailLogin === 'vantruong08062002@gmail.com'">
+                  <div v-if="emailLogin === emailAdmin">
                     <input type="text" v-model="dataText.text4" style="width: 100%; height: 100%;" placeholder="Data...">
                   </div>
                   <div v-else>
@@ -553,7 +553,8 @@ const dataFoodter = ref({
   ],
   foodter: "★其他具體建議事項"
 })
-const emailAdmin = "tf0117@tsust.edu.tw"
+// const emailAdmin = "tf0117@tsust.edu.tw"
+const emailAdmin = "vantruong08062002@gmail.com"
 const url = "https://script.google.com/macros/s/AKfycbzhk3LakNmOp4KTW1XHABT2awpfjviGAq_DR4NxWoQZBSALJF9btfQ3Q2REy3_vx4X1/exec"
 const totalItemsData = computed(() => { // Tính tổng dữ liệu
   return data.value.reduce((sum, group) => {
