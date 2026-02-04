@@ -267,7 +267,7 @@
 
           <div class="div2">
             <p style="font-size: 30px; margin: 15px 0;">
-              114年度高等教育深耕計畫主冊計畫活動滿意度調查表
+              115年度高等教育深耕計畫主冊計畫活動滿意度調查表
             </p>
           </div>
         </div>
@@ -368,7 +368,7 @@
             <table border="1">
               <thead>
               <tr v-for="(itemData, indexData) in item.items" :key="indexData">
-                <th style="width: 870px;">{{ itemData }}</th>
+                <th style="width: 870px; padding-left: 30px; text-align: left;">{{ itemData }}</th>
                 <th style="width: 100px;"><input type="radio" @change="saveData(item.id, itemData, 1)" :name="item.id + '_' + indexData" value="1"></th> <!--Để "name" của thẻ radio giống nhau thì mới chọn được 1 giá trị radio duy nhất-->
                 <th style="width: 100px;"><input type="radio" @change="saveData(item.id, itemData, 2)" :name="item.id + '_' + indexData" value="2"></th>
                 <th style="width: 100px;"><input type="radio" @change="saveData(item.id, itemData, 3)" :name="item.id + '_' + indexData" value="3"></th>
@@ -553,8 +553,8 @@ const dataFoodter = ref({
   ],
   foodter: "★其他具體建議事項"
 })
-// const emailAdmin = "tf0117@tsust.edu.tw"
-const emailAdmin = "vantruong08062002@gmail.com"
+const emailAdmin = "tf0117@tsust.edu.tw"
+// const emailAdmin = "vantruong08062002@gmail.com"
 const url = "https://script.google.com/macros/s/AKfycbzhk3LakNmOp4KTW1XHABT2awpfjviGAq_DR4NxWoQZBSALJF9btfQ3Q2REy3_vx4X1/exec"
 const totalItemsData = computed(() => { // Tính tổng dữ liệu
   return data.value.reduce((sum, group) => {
