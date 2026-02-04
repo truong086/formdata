@@ -553,7 +553,7 @@ const dataFoodter = ref({
   ],
   foodter: "★其他具體建議事項"
 })
-const emailAdmin = "vantruong08062002@gmail.com"
+const emailAdmin = "tf0117@tsust.edu.tw"
 const url = "https://script.google.com/macros/s/AKfycbzhk3LakNmOp4KTW1XHABT2awpfjviGAq_DR4NxWoQZBSALJF9btfQ3Q2REy3_vx4X1/exec"
 const totalItemsData = computed(() => { // Tính tổng dữ liệu
   return data.value.reduce((sum, group) => {
@@ -571,7 +571,8 @@ const isLoading = ref(false)
 const content = ref('')
 const textArea = ref('')
 const dataFormSave = ref({
-  sheetId: '1hhQaekC8bXnQM4V4OgcvuaR3Xr4Yu2UjV-i2JLpfKjE',
+  // 1hhQaekC8bXnQM4V4OgcvuaR3Xr4Yu2UjV-i2JLpfKjE
+  sheetId: '1fBoEaRu09-grXtqtJ8dwNKEe1CTmTtowTYp1Jdn6Se8',
   sheetName: 'test',
   action: "deleteSheet",
   test: [
