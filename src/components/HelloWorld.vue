@@ -553,9 +553,11 @@ const dataFoodter = ref({
   ],
   foodter: "★其他具體建議事項"
 })
-const emailAdmin = "tf0117@tsust.edu.tw"
-// const emailAdmin = "vantruong08062002@gmail.com"
+const emailAdmin = "vantruong08062002@gmail.com"
 const url = "https://script.google.com/macros/s/AKfycbzhk3LakNmOp4KTW1XHABT2awpfjviGAq_DR4NxWoQZBSALJF9btfQ3Q2REy3_vx4X1/exec"
+//const emailAdmin = "tf0117@tsust.edu.tw"
+// const emailAdmin = "vantruong08062002@gmail.com"
+//const url = "https://script.google.com/macros/s/AKfycbzhk3LakNmOp4KTW1XHABT2awpfjviGAq_DR4NxWoQZBSALJF9btfQ3Q2REy3_vx4X1/exec"
 const totalItemsData = computed(() => { // Tính tổng dữ liệu
   return data.value.reduce((sum, group) => {
     return sum + group.items.length

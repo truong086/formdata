@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "./components/HelloWorld.vue";
+import HomePage from "./components/TestPage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import { useCounterStore } from "./store";
 import { onAuthStateChanged } from "firebase/auth";

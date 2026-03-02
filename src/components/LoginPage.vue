@@ -2,7 +2,7 @@
      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
          <button @click="loginWithGoogle" class="google-btn">
   <img src="https://developers.google.com/identity/images/g-logo.png" />
-  Đăng nhập bằng Google
+   Google Login
 </button>
      </div>
 </template>
@@ -38,7 +38,7 @@ const router = useRouter()
 
   } catch (error) {
     console.error(error)
-    alert("Lỗi đăng nhập")
+    alert("Login Error")
   }
 }
 </script>
