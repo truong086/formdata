@@ -553,7 +553,7 @@
         <div class="div10">
           <div style="margin: 10px 0">
             <button
-              v-on:click="showDialogCreateText = true"
+              v-on:click="showDialogCreateTextFunc"
               style="width: 30px; height: 30px; border-radius: 50%"
             >
               +
@@ -946,7 +946,7 @@
               <div style="display: flex; margin: 10px 25px">
                 <h5 style="margin-top: 5px; margin-right: 10px">The problem</h5>
                 <button
-                  v-on:click="dataListVanDed.push('')"
+                  v-on:click="dataListVanDed.push({id: Date.now() + Math.random(), name: ''})"
                   style="width: 30px; height: 30px; border-radius: 50%; cursor: pointer"
                 >
                   +
@@ -956,14 +956,16 @@
               <div
                 style="margin-left: 20px"
                 v-for="(item, index) in dataListVanDed"
-                :key="index"
+                :key="item.id"
               >
                 <label for="">Problem {{ index + 1 }}: </label>
                 <input
                   type="text"
                   :class="'i_' + index"
+                  v-model="item.name"
                   @input="saveDataInputVanDe('i_' + index, index)"
                 />
+                <button @click="deleteDataForm(index)" style="border: none; outline: none; background-color: transparent; cursor: pointer;">❌</button>
               </div>
             </div>
           </div>
@@ -1026,7 +1028,7 @@
               <div style="display: flex; margin: 10px 25px">
                 <h5 style="margin-top: 5px; margin-right: 10px">The problem</h5>
                 <button
-                  v-on:click="dataListVanDedFooter.push('')"
+                  v-on:click="dataListVanDedFooter.push({id: Date.now() + Math.random(), name: ''})"
                   style="width: 30px; height: 30px; border-radius: 50%; cursor: pointer"
                 >
                   +
@@ -1036,14 +1038,16 @@
               <div
                 style="margin-left: 20px"
                 v-for="(item, index) in dataListVanDedFooter"
-                :key="index"
+                :key="item.id"
               >
                 <label for="">Problem {{ index + 1 }}: </label>
                 <input
                   type="text"
                   :class="'i_' + index"
+                  v-model="item.name"
                   @input="saveDataInputVanDeFooter('i_' + index, index)"
                 />
+                <button v-on:click="dataListVanDedFooter.splice(index, 1)" style="border: none; outline: none; background-color: transparent; cursor: pointer;">❌</button>
               </div>
             </div>
           </div>
@@ -1200,10 +1204,10 @@ const dataFoodter = ref({
   ],
   foodter: "★其他具體建議事項",
 });
-//const emailAdmin = "tf0117@tsust.edu.tw";
-const emailAdmin = "vantruong08062002@gmail.com";
+const emailAdmin = "tf0117@tsust.edu.tw";
+// const emailAdmin = "vantruong08062002@gmail.com";
 const url =
-  "https://script.google.com/macros/s/AKfycbx8QD91ki2OpiN4bR_rUxW76YYEQ7LxOTiTbp4bb-EO7fuI_imvizHGFIDUKDOyARPH/exec";
+  "https://script.google.com/macros/s/AKfycbxC65xQYqqkEaitz95vLhoEkU2cM2VcRi2ArUp00XwEZMuIPuWqEunRo7KQmPOaOfVe/exec";
 
 const showDialogAddHeader = ref(false);
 const totalItemsData = computed(() => {
@@ -1213,6 +1217,10 @@ const totalItemsData = computed(() => {
   }, 0);
 });
 
+const showDialogCreateTextFunc = () => {
+  showDialogCreateText.value = true
+  dataListVanDed.value = []
+}
 const totalItemsDataFooter = computed(() => {
   // Tính tổng dữ liệu
   return dataFoodter.value.reduce((sum, group) => {
@@ -1285,6 +1293,14 @@ const headerData = ref({
   header2: "",
   name: "",
 });
+
+const deleteDataForm = (index) => {
+  if(document.querySelector('i_' + index) !== null)
+    document.querySelector('i_' + index).value = ""
+  // dataListVanDed.value.splice(index, 1)
+  dataListVanDed.value = dataListVanDed.value.filter((_, i) => i !== index)
+  console.log("Index: ", index)
+}
 const openDialog = (id, name, item) => {
   // console.log("Id firebase: ", item);
   idDataFirebase.value = id;
@@ -1495,7 +1511,7 @@ const updatedataFooterText = (text, index, id) => {
   dataUpdateText.value.text = text;
 };
 const addVanDeFooter = async () => {
-  const checkDataList = dataListVanDedFooter.value.some((x) => x.trim() === "");
+  const checkDataList = dataListVanDedFooter.value.some((x) => x.name === undefined || x.name.trim() === "");
   if (
     checkDataList == true ||
     titleVanDe.value === "" ||
@@ -1507,10 +1523,14 @@ const addVanDeFooter = async () => {
 
   idVanDe.value = crypto.randomUUID();
 
+  let dataFoodterMap = []
+  dataListVanDedFooter.value.forEach(x => {
+    dataFoodterMap.push(x.name)
+  })
   let dataObject = {
     id: idVanDe.value,
     title: titleVanDe.value,
-    options: dataListVanDedFooter.value,
+    options: dataFoodterMap,
     date: new Date(),
   };
 
@@ -1535,7 +1555,7 @@ const addVanDeFooter = async () => {
 const saveDataInputVanDeFooter = (className, index) => {
   const dataValue = document.querySelector("." + className)?.value;
 
-  dataListVanDedFooter.value[index] = dataValue;
+  dataListVanDedFooter.value[index].name = dataValue;
 };
 const deleteColum = async (index) => {
   try {
@@ -1644,7 +1664,7 @@ const checkDataUser = async () => {
 };
 
 const addVanDe = async () => {
-  const checkString = dataListVanDed.value.some((x) => x.trim() === "");
+  const checkString = dataListVanDed.value.some((x) => x?.name === undefined || x.name.trim() === "");
 
   if (
     dataListVanDed.value.length <= 0 ||
@@ -1658,10 +1678,14 @@ const addVanDe = async () => {
   idVanDe.value = crypto.randomUUID();
 
   let dataAdd = [];
+  let dataVanDeMap = []
+  dataListVanDed.value.forEach(x => {
+    dataVanDeMap.push(x.name)
+  })
   let dataObject = {
     id: idVanDe.value,
     title: titleVanDe.value,
-    data: dataListVanDed.value,
+    data: dataVanDeMap,
     date: new Date(),
   };
   dataAdd.push(dataObject);
@@ -1687,7 +1711,7 @@ const addVanDe = async () => {
 };
 const saveDataInputVanDe = (classData, index) => {
   const dataClass = document.querySelector("." + classData)?.value;
-  dataListVanDed.value[index] = dataClass;
+  dataListVanDed.value[index].name = dataClass;
 };
 watch([dataFirebaseOne, emailLogin], () => {
   if (dataFirebaseOne.value && emailLogin.value) {
@@ -2026,9 +2050,9 @@ const createSheetsOnline = async () => {
       return;
     }
 
-    alert("Gửi thành công!");
+    alert("Success!");
   } catch (err) {
-    alert("Lỗi gửi dữ liệu");
+    alert("Error");
     console.error(err);
   } finally {
     isLoading.value = false;
@@ -2138,9 +2162,9 @@ const submitForm = async () => {
     }
     console.log("Data ADd: ", res);
     // console.log("Đã vào")
-    alert("Gửi thành công!");
+    alert("Success!");
   } catch (err) {
-    alert("Lỗi gửi dữ liệu");
+    alert("Error");
     console.error(err);
   } finally {
     isLoading.value = false;
